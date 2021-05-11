@@ -1,2 +1,3 @@
 .vscode
 *.egg*
+__pycache__
