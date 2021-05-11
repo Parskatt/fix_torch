@@ -44,4 +44,7 @@ def fixed_reshape(self,shape,*_):
     return torch_reshape(self,shape)
 
 
-torch.Tensor.reshape = fixed_reshape 
+torch.Tensor.reshape = fixed_reshape
+
+torch.t = lambda x: x.permute(*range(len(x.shape)-2),-1,-2)
+torch.Tensor.t = lambda self: torch.t(self)
