@@ -14,4 +14,5 @@ def unravel_index(indices,shape):
 
 
 torch.trace = lambda x: torch.einsum('...ii->...',x)
+
 torch.Tensor.__matmul__ = lambda self,other: torch.einsum('...ab,...bc->...ac',self,other)
