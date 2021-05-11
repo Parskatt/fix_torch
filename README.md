@@ -20,4 +20,6 @@ v = torch.randn(8,4,4)
 z = x@y # do bmm without torch being annoying about it
 tr = torch.trace(v) # do trace on batched matrices
 
+w = x.reshape(...,4,3,3)
+
 ```

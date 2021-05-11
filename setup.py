@@ -26,7 +26,7 @@ def _load_requirements(path_dir = '.', file_name = 'requirements.txt', comment_c
 
 setuptools.setup(
     name="fix_torch",
-    version="0.0.0",
+    version="0.0.1",
     author="Johan Edstedt",
     author_email="johan.edstedt@liu.se",
     description="Quality of life improvements for pytorch.",
