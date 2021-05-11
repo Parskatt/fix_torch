@@ -19,8 +19,6 @@ def unravel_index(indices,shape):
     return coord.flip(-1)
 
 torch.trace = lambda x: torch.einsum('...ii->...',x)
-a=copy.deepcopy(torch.Tensor.reshape)
-
 torch.Tensor.__matmul__ = lambda self,other: torch.einsum('...ab,...bc->...ac',self,other)
 
 def match_ind(shape1,shape2):
@@ -28,9 +26,9 @@ def match_ind(shape1,shape2):
     p2 = np.cumprod(shape2)
     return np.argwhere(p1==p2[-1]).item()
 
-old_reshape = copy.deepcopy(torch.Tensor.reshape)
+torch_reshape = copy.deepcopy(torch.Tensor.reshape)
 
-def new_reshape(self,shape,*_):
+def fixed_reshape(self,shape,*_):
     if not isinstance(shape,tuple):
         shape = (shape,)+_ 
     shape = shape
@@ -43,7 +41,7 @@ def new_reshape(self,shape,*_):
     elif shape2[0] is Ellipsis:
         ind = match_ind(shape1[::-1],shape2[::-1][:-1])
         shape = shape1[:-(ind+1)]+shape2[1:]
-    return old_reshape(self,shape)
+    return torch_reshape(self,shape)
 
 
-torch.Tensor.reshape = new_reshape 
+torch.Tensor.reshape = fixed_reshape 
