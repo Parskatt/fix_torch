@@ -60,3 +60,9 @@ torch.reshape = fixed_reshape
 # Overload the pytorch transpose functions, note that I have not figured out how to overwrite .T yet
 torch.t = lambda x: x.permute(*range(len(x.shape)-2),-1,-2)
 torch.Tensor.t = lambda self: torch.t(self)
+
+to_cpy = copy.deepcopy(torch.nn.Module.to)
+def new_to(self,device,*args,**kwargs):
+    self.device = device
+    return to_cpy(self,device,*args,**kwargs)
+torch.nn.Module.to = new_to
