@@ -2,6 +2,7 @@ import torch
 import numpy as np
 import copy
 from typing import Tuple
+from collections.abc import Iterable
 
 __all__ = []
 
@@ -37,8 +38,9 @@ def match_ind(shape1,shape2):
     p2 = np.cumprod(shape2)
     return np.argwhere(p1==p2[-1]).item()
 torch_reshape = copy.deepcopy(torch.Tensor.reshape)
-def fixed_reshape(self,shape,*_):
-    if not isinstance(shape,tuple):
+
+def fixed_reshape(self, shape, *_):
+    if not isinstance(shape, Iterable):
         shape = (shape,)+_ 
     shape = shape
     shape1 = self.shape
