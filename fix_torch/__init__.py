@@ -36,7 +36,7 @@ torch.Tensor.__matmul__ = lambda self,other: torch.einsum('...ab,...bc->...ac',s
 def match_ind(shape1,shape2):
     p1 = np.cumprod(shape1)
     p2 = np.cumprod(shape2)
-    return np.argwhere(p1==p2[-1]).item()
+    return np.argwhere(p1==p2[-1])[0].item()
 torch_reshape = copy.deepcopy(torch.Tensor.reshape)
 
 def fixed_reshape(self, shape, *_):
