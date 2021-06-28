@@ -14,7 +14,7 @@ def unravel_index(
     shape = torch.tensor(shape)
     indices = indices % shape.prod()  # prevent out-of-bounds indices
 
-    coord = torch.zeros(indices.size() + shape.size(), dtype=int)
+    coord = torch.zeros(indices.size() + shape.size(), dtype=int, device=indices.device)
 
     for i, dim in enumerate(reversed(shape)):
         coord[..., i] = indices % dim
